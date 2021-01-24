@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InvoiceManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Createddate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoice__Custome__173876EA" FromRole="Customer" ToRole="Invoice" />
+  </EntityType>
+  <EntityType Name="EmailSummary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EmailTemplate" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="EmailSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmailReceiver" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmailSender" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="invoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="CustomerRef" Type="Int32" Nullable="false" />
+    <Property Name="PaymentStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IsMailSent" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Invoice__Custome__173876EA" FromRole="Invoice" ToRole="Customer" />
+  </EntityType>
+  <Association Name="FK__Invoice__Custome__173876EA">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="CustomerRef" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InvoiceManagementEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="EmailSummaries" EntityType="Self.EmailSummary" />
+    <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+    <AssociationSet Name="FK__Invoice__Custome__173876EA" Association="Self.FK__Invoice__Custome__173876EA">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InvoiceManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="30" />
+    <Property Name="Createddate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EmailSummary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailType" Type="varchar" MaxLength="20" />
+    <Property Name="EmailTemplate" Type="varchar" MaxLength="200" />
+    <Property Name="EmailSubject" Type="varchar" MaxLength="50" />
+    <Property Name="EmailReceiver" Type="varchar" MaxLength="50" />
+    <Property Name="EmailSender" Type="varchar" MaxLength="40" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceNumber" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="invoiceDate" Type="datetime" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="CustomerRef" Type="int" Nullable="false" />
+    <Property Name="PaymentStatus" Type="varchar" MaxLength="10" />
+    <Property Name="IsMailSent" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__Invoice__Custome__173876EA">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="CustomerRef" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InvoiceManagementModelStoreContainer">
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailSummary" EntityType="Self.EmailSummary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Invoice__Custome__173876EA" Association="Self.FK__Invoice__Custome__173876EA">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

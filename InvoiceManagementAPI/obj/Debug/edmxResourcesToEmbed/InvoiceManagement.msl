@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InvoiceManagementModelStoreContainer" CdmEntityContainer="InvoiceManagementEntities1">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="InvoiceManagementModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Createddate" ColumnName="Createddate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailSummaries">
+      <EntityTypeMapping TypeName="InvoiceManagementModel.EmailSummary">
+        <MappingFragment StoreEntitySet="EmailSummary">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="EmailType" ColumnName="EmailType" />
+          <ScalarProperty Name="EmailTemplate" ColumnName="EmailTemplate" />
+          <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
+          <ScalarProperty Name="EmailReceiver" ColumnName="EmailReceiver" />
+          <ScalarProperty Name="EmailSender" ColumnName="EmailSender" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="InvoiceManagementModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+          <ScalarProperty Name="invoiceDate" ColumnName="invoiceDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="CustomerRef" ColumnName="CustomerRef" />
+          <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+          <ScalarProperty Name="IsMailSent" ColumnName="IsMailSent" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
